@@ -1,12 +1,13 @@
 package com.sbravoc.products.management.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "products")
@@ -25,7 +26,11 @@ public class Product {
     @Column(nullable = false, length = 100)
     private String name;
 
-    private Integer price;
+    @NotNull(message = "El precio es requerido")
+    @DecimalMin(value = "0.01", message = "El precio debe ser mayor a 0")
+    @Digits(integer = 10, fraction = 2, message = "El precio debe tener máximo 10 digitos enteros y 2 decimales")
+    @Column(nullable = false, precision = 12, scale = 2)
+    private BigDecimal price;
 
     private String description;
 }
