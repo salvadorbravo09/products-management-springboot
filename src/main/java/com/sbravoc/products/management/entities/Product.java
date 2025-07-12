@@ -32,5 +32,7 @@ public class Product {
     @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal price;
 
+    @Size(max = 500, message = "La descripcion no puede exceder 500 caracteres")
+    @Column(length = 500)
     private String description;
 }
